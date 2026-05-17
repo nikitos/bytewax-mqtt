@@ -15,7 +15,7 @@ class MQTTSinkPartition(StatelessSinkPartition):
         self._client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
         if username:
             self._client.username_pw_set(username, password)
-        self._client.connect(host, port)
+        self._client.connect(host, int(port))
     def write_batch(self, chunks: list):
         if not chunks:
             return
@@ -34,7 +34,7 @@ class MQTTSink(DynamicSink):
     def __init__(
         self,
         host: str = 'localhost',
-        port: int = '8123',
+        port: int = 1883,
         username: str = None,
         password: str = None,
     ):
